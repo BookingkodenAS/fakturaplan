@@ -23,22 +23,16 @@ Grunnlagsdata og prisdokumenter:
   oppdaterer H-kolonnen (Anrop besvart) i Prisoversikt-Sentralbord. Kjøres som
   tørrkjøring først, deretter med `--skriv` etter bekreftelse. Se
   `skills/fakturaoppdatering/SKILL.md` for full rutine og spesialtilfeller.
-- `faktura_kalkulator.cpython310.pyc` – **kompilert bytecode, ikke kildekode.**
-  Beregner fakturabeløp per kunde ut fra prismodellene i Fakturaplan. Kilden
-  (`faktura_kalkulator.py`) lå ikke i det som ble delt fra Cowork-prosjektet,
-  kun denne kompilerte `.pyc`-filen (Python 3.10). Automatisk dekompilering ble
-  forsøkt, men ga ufullstendig og delvis **feil** logikk (bl.a. en gal
-  grensesjekk i oppslagsfunksjonen), så den er ikke lagt inn her – det ville
-  vært risikabelt å basere fakturaberegning på gjettet kode. **Kildekoden bør
-  legges inn i `scripts/faktura_kalkulator.py` så snart den er tilgjengelig**,
-  f.eks. fra `C:\Users\hei\Claude\Projects\Fakturaplan\faktura_kalkulator.py`
-  på maskinen der Cowork kjører.
+- `faktura_kalkulator.py` – beregner fakturabeløp per kunde ut fra
+  prismodellene i Fakturaplan, basert på Zisson-statistikken. Inneholder
+  kundekonfigurasjon (`KUNDER`) og prismodeller (`std`, `ceg`, egne tabeller,
+  fast pris/stykkpris-varianter osv.) og bygger en formatert
+  `Fakturagrunnlag_<måned>.xlsx`. Merk: standardstien i `main()` peker til en
+  Cowork-arbeidsmappe (`/sessions/.../Fakturaplan/`) – oppgi Zisson-filen som
+  argument når scriptet kjøres et annet sted.
 
 ### `skills/fakturaoppdatering/`
 - `SKILL.md` – rutinebeskrivelsen som styrer den månedlige
   fakturaoppdateringen i Cowork (kjøres normalt automatisk den 1. i hver
   måned).
 
-## Status / TODO
-- [ ] Legg til kildekoden for `faktura_kalkulator.py` (se over)
-- [ ] Vurder om `.pyc`-filen skal fjernes når kildekoden er på plass
