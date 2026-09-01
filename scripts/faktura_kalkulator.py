@@ -983,7 +983,10 @@ def main():
 
     if not zisson_sti:
         # Finn nyeste Zisson-fil automatisk
-        ZISSON_MAPPE = "/sessions/serene-inspiring-thompson/mnt/Fakturaplan/"
+        ZISSON_MAPPE = os.environ.get(
+            "FAKTURAPLAN_DIR",
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data"),
+        )
         filer = [f for f in os.listdir(ZISSON_MAPPE)
                  if f.startswith("We4you- Måned") and f.endswith(".xlsx")]
         if not filer:
@@ -1019,7 +1022,12 @@ def main():
         resultater[kunde_id] = (belop, anrop, bereg_notat, cfg.get("notat", ""))
 
     # Output
-    out_sti = f"/sessions/serene-inspiring-thompson/mnt/Fakturaplan/Fakturagrunnlag_{maaned_label.replace(' ','_')}.xlsx"
+    OUT_MAPPE = os.environ.get(
+        "FAKTURAPLAN_OUTDIR",
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "fakturagrunnlag"),
+    )
+    os.makedirs(OUT_MAPPE, exist_ok=True)
+    out_sti = os.path.join(OUT_MAPPE, f"Fakturagrunnlag_{maaned_label.replace(' ','_')}.xlsx")
     total = bygg_output(resultater, maaned_label, out_sti)
 
     print(f"{'Kunde':<42} {'Anrop':>7} {'Beregnet':>12}")

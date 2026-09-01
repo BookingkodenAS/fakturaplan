@@ -18,12 +18,16 @@ Eksempel:
     python3 oppdater_h_kolonne.py --skriv
 """
 
+import os
 import sys
 from pathlib import Path
 import openpyxl
 
-# Prosjektmappe
-PROSJEKT = Path(r"C:\Users\hei\Claude\Projects\Fakturaplan")
+# Prosjektmappe – repoets data/-mappe med mindre annet er satt via miljøvariabel
+PROSJEKT = Path(os.environ.get(
+    "FAKTURAPLAN_DIR",
+    Path(__file__).resolve().parent.parent / "data",
+))
 
 
 def normaliser(tekst: str) -> str:
@@ -149,7 +153,9 @@ def match_linje(ko_navn: str):
 
 def finn_zisson_fil(mappe: Path, spesifisert=None) -> Path:
     if spesifisert:
-        p = mappe / spesifisert
+        p = Path(spesifisert)
+        if not p.is_absolute() and not p.exists():
+            p = mappe / spesifisert
         if not p.exists():
             raise FileNotFoundError(f"Fant ikke: {p}")
         return p
@@ -167,9 +173,11 @@ def finn_zisson_fil(mappe: Path, spesifisert=None) -> Path:
 
 def finn_prisoversikt(mappe: Path) -> Path:
     kandidater = list(mappe.glob("Prisoversikt-Sentralbord-*.xlsx"))
+    kandidater += list(mappe.glob("Prisoversikt*Sentralbord*.xlsx"))
+    kandidater = sorted(set(kandidater))
     if not kandidater:
-        raise FileNotFoundError("Fant ikke Prisoversikt-Sentralbord-*.xlsx")
-    return sorted(kandidater)[-1]
+        raise FileNotFoundError("Fant ikke noen Prisoversikt-Sentralbord-fil")
+    return kandidater[-1]
 
 
 def les_zisson_totaler(zisson_fil: Path) -> dict:
