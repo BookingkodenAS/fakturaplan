@@ -136,6 +136,8 @@ KO_LINJE = [
     ("Foma Service",                           12),
     ("Feste Trafikkskole",                     68),   # Årsabonnement – H er anropsbasert, I beregnes manuelt
     ("Ower Trafikkskole",                      78),   # Fast pris (endret prisplan) – H er anropsbasert
+    ("Kinnarps",                                79),   # Ny kø aug 2026 – avventer prismodell
+    ("T. Solbakken Trafikkskole",               80),   # Ny kø aug 2026 – avventer prismodell
     ("Nemus",                                None),   # Spesialhandtert via NEMUS-fil
     ("Allskog",                                58),   # Generisk fallback
 ]
