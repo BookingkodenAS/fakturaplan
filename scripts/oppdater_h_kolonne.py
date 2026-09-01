@@ -134,6 +134,8 @@ KO_LINJE = [
     ("Fit4",                                   70),
     ("Helselaben",                             70),   # Alias – telles med Fit4
     ("Foma Service",                           12),
+    ("Feste Trafikkskole",                     68),   # Årsabonnement – H er anropsbasert, I beregnes manuelt
+    ("Ower Trafikkskole",                      78),   # Fast pris (endret prisplan) – H er anropsbasert
     ("Nemus",                                None),   # Spesialhandtert via NEMUS-fil
     ("Allskog",                                58),   # Generisk fallback
 ]
