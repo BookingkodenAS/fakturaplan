@@ -96,16 +96,31 @@ linjenummer/kundekonfigurasjon.
 
 ```bash
 python3 scripts/oppdater_h_kolonne.py "data/zisson/<zisson-fil>.xlsx" --skriv
-python3 scripts/faktura_kalkulator.py "data/zisson/<zisson-fil>.xlsx"
 ```
 
-`faktura_kalkulator.py` bygger `Fakturagrunnlag_<måned>.xlsx`. Legg denne i
-`data/fakturagrunnlag/` og commit den sammen med den oppdaterte
-`PrisoversiktSentralbord2026.xlsx`, med commit-melding som nevner
-faktureringsperioden.
+**Ikke bruk `faktura_kalkulator.py` til å beregne fakturagrunnlaget** – det er
+en ufullstendig separat Python-reimplementasjon (mangler bl.a. Gass og
+Pusteservice AS, teller Norenco feil, ingen NEMUS-fordeling per klinikk). Fra
+og med august 2026 har `PrisoversiktSentralbord2026.xlsx` egne formler
+(I-kolonnen, VLOOKUP mot `Tabeller` og de andre referansearkene) som er kilde
+til sannhet. openpyxl beregner ikke formler, så etter `--skriv` må filen
+kjøres gjennom LibreOffice for å få friske beregnede verdier i I-kolonnen:
 
 ```bash
-git add data/PrisoversiktSentralbord2026.xlsx data/fakturagrunnlag/Fakturagrunnlag_<måned>.xlsx
+soffice --headless --norestore -env:UserInstallation=file:///tmp/lo_$$ \
+  --convert-to xlsx --outdir /tmp/recalc data/PrisoversiktSentralbord2026.xlsx
+cp /tmp/recalc/PrisoversiktSentralbord2026.xlsx data/PrisoversiktSentralbord2026.xlsx
+```
+
+(Hvis `soffice`/`libreoffice-calc` ikke er installert: `apt-get update && apt-get install -y libreoffice-calc`.)
+
+Les deretter summen av I4:I93 (samme range som `BEREGNET TOTAL`-raden bruker)
+og list opp linjer med tom I-verdi (kvartalsvise/manuelle poster som ikke er
+fakturamåned, eller nye kunder uten prismodell ennå) – disse skal IKKE telles
+med i totalen.
+
+```bash
+git add data/PrisoversiktSentralbord2026.xlsx
 git commit -m "Fakturaoppdatering <måned> <år>"
 git push origin main
 ```

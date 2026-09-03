@@ -9,8 +9,18 @@ Claude Cowork (lokal prosjektmappe `C:\Users\hei\Claude\Projects\Fakturaplan\`).
 ### `data/`
 Grunnlagsdata og prisdokumenter:
 - `Fakturaplan2026.xlsx` – hovedoversikt for faktureringsåret 2026
-- `PrisoversiktSentralbord2026.xlsx` – prisoversikt per kunde, inkl. H-kolonnen
-  (Anrop besvart) som oppdateres månedlig fra Zisson-statistikken
+- `PrisoversiktSentralbord2026.xlsx` – prisoversikt per kunde. **Dette er nå
+  kilden til sannhet for fakturaberegningen**: H-kolonnen (Besvarte anrop)
+  oppdateres månedlig fra Zisson-statistikken, og I-kolonnen (Beregnet pris)
+  beregnes av arkets egne formler (VLOOKUP mot `Tabeller`-arket og de andre
+  referansearkene: `Standard 0-99`, `CEG-tabell`, `Caverion`,
+  `Fysikalsk institutt`, `Promon tabell`, `ENRX tabell`, `Rambøll tabell`,
+  `Kvartalsfakturering`). Siden openpyxl (som scriptene bruker) ikke
+  beregner formler selv, må filen kjøres gjennom LibreOffice headless for å
+  få oppdaterte tall etter en H-kolonne-endring:
+  `soffice --headless --convert-to xlsx --outdir <mappe> PrisoversiktSentralbord2026.xlsx`
+  (Excel gjør dette automatisk når filen åpnes, så det trengs kun for
+  rapportering/verifisering i denne økten.)
 - `Kvartalsvis_Terminfakturering_Sentralbordet.xlsx` – kunder som faktureres
   kvartalsvis (f.eks. Enova Trondheim)
 - `NEMUS_Anrop_Fordeling_Juni2026.xlsx` – manuell fordeling av NEMUS-anrop per
@@ -23,13 +33,14 @@ Grunnlagsdata og prisdokumenter:
   oppdaterer H-kolonnen (Anrop besvart) i Prisoversikt-Sentralbord. Kjøres som
   tørrkjøring først, deretter med `--skriv` etter bekreftelse. Se
   `.claude/skills/fakturaoppdatering/SKILL.md` for full rutine og spesialtilfeller.
-- `faktura_kalkulator.py` – beregner fakturabeløp per kunde ut fra
-  prismodellene i Fakturaplan, basert på Zisson-statistikken. Inneholder
-  kundekonfigurasjon (`KUNDER`) og prismodeller (`std`, `ceg`, egne tabeller,
-  fast pris/stykkpris-varianter osv.) og bygger en formatert
-  `Fakturagrunnlag_<måned>.xlsx`. Merk: standardstien i `main()` peker til en
-  Cowork-arbeidsmappe (`/sessions/.../Fakturaplan/`) – oppgi Zisson-filen som
-  argument når scriptet kjøres et annet sted.
+- `faktura_kalkulator.py` – **utdatert/ufullstendig**, ikke lenger kilde til
+  sannhet. Dette var en separat Python-reimplementasjon av prismodellene, men
+  den mangler flere kunder (bl.a. Gass og Pusteservice AS), regner Norenco
+  feil (teller ikke med Mekan-aliaset), og har ikke NEMUS-fordeling per
+  klinikk. Etter at Prisoversikt-arket ble utvidet med egne
+  formler/referanseark (se over) er det arkets egne formler som gjelder.
+  Behold scriptet for historikk, men ikke bruk det til å generere
+  fakturagrunnlag uten å kryssjekke mot Prisoversikten.
 
 ### `.claude/skills/fakturaoppdatering/`
 - `SKILL.md` – rutinebeskrivelsen som styrer den månedlige fakturaoppdateringen.
