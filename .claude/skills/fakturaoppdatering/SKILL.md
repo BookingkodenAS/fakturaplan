@@ -84,6 +84,7 @@ besvart) i `data/PrisoversiktSentralbord2026.xlsx`.
 - Enova Trondheim (linje 65): kvartalsfakturering – sjekk om det er faktureringsmåned
 - NYD (linje 67) og Feste Trafikkskole (linje 68): sjekk faktureringsdato
 - NEMUS-klinikkene (linje 50–54): fordeles manuelt via NEMUS_Anrop_Fordeling-filen, scriptet oppdaterer kun totalsummen i B5
+- Willis Towers Watson AS (linje 77): fast kr 490/mnd tillegg for bestilt samtaleoverføringsrapport, fra og med september 2026-kjøringen (lagt inn direkte i I92-formelen: `+490`). Ikke fjern dette tillegget ved fremtidige H-kolonne-oppdateringer.
 
 ## Steg 4 – Ukjente køer
 
