@@ -84,7 +84,9 @@ besvart) i `data/PrisoversiktSentralbord2026.xlsx`.
 - Enova Trondheim (linje 65): kvartalsfakturering – sjekk om det er faktureringsmåned
 - NYD (linje 67) og Feste Trafikkskole (linje 68): sjekk faktureringsdato
 - NEMUS-klinikkene (linje 50–54): fordeles manuelt via NEMUS_Anrop_Fordeling-filen, scriptet oppdaterer kun totalsummen i B5
-- Willis Towers Watson AS (linje 77): fast kr 490/mnd tillegg for bestilt samtaleoverføringsrapport, fra og med september 2026-kjøringen (lagt inn direkte i I92-formelen: `+490`). Ikke fjern dette tillegget ved fremtidige H-kolonne-oppdateringer.
+- Willis Towers Watson AS (linje 77): fast kr 490/mnd tillegg for bestilt samtaleoverføringsrapport, fra og med september 2026-kjøringen. Bekreftet av Geir 2026-09-17 at dette IKKE skal telle med i august-beregningen (I92 uten `+490` for august) — legg til `+490` i I92-formelen først når H-kolonnen oppdateres for september 2026, og ikke fjern det igjen etter det.
+- Enova Trondheim (linje 65): august 2026 er bekreftet IKKE faktureringsmåned (kvartalsvis jan/apr/jul/okt) — I76 tømt for denne perioden. Husk å legge inn `=5140+MAX(0,H76-200)*36` igjen når H-kolonnen oppdateres for oktober 2026, med kumulativt Q3-antall (jul+aug+sep). NB: H76 sto på 38 rett etter august-oppdateringen 1. sept, men ble tilbakestilt til 66 da formlene ble lagt inn 3. sept uten forklaring i commit-meldingen — dobbeltsjekk riktig Q3-tall før oktoberkjøringen.
+- NYD – Norsk Yrkesdykkerskole (linje 67): fakturerer forskudd pr. kvartal (feb/mai/aug/nov), flat kr 10 230 uten trapp. Bekreftet av Geir 2026-09-17 at august 2026 er faktureringsmåned — I78 satt til `=10230`.
 
 ## Steg 4 – Ukjente køer
 
