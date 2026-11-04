@@ -96,7 +96,7 @@ besvart) i `data/PrisoversiktSentralbord2026.xlsx`.
 - Veidekke Industri AS – Møre (linje 27, kundenr 32722): **ordre 28326 er den gjeldende** i Tripletex (bekreftet av Geir 2026-11-04) – IKKE ordre 27123, som også finnes åpen på samme kunde men er en duplikat/gammel ordre.
 - Veidekke Industri AS – Sogn (linje 28, kundenr 33197, oppstart mars 2026): egen Tripletex-kunde (ikke samme som Møre), ordre 27827.
 - Spraying Systems Norge AS (linje 22): **rettet fra feilaktig "Spraying Systems Sverige AB"** i Prisoversikten 2026-11-04. Ordre 27116 er den gjeldende i Tripletex (ordre 28325 er en gammel duplikat, ikke oppdatert).
-- Enova Trondheim (Compass, linje 65) og Norsk Medisinsk Syklotronsenter (linje 66/77): Tripletex-ordrene (27086 og 27107) hadde per 2026-11-04 fortsatt gamle periodedatoer (hhv. august og juli–sep) som IKKE var rullet videre – må oppdateres til inneværende kvartal neste gang de er faktureringsmåned.
+- Enova Trondheim (Compass, linje 65) og Norsk Medisinsk Syklotronsenter (linje 66/77): **2026-11-04: periodene rullet videre** til okt–des 2026 på begge Tripletex-ordrene (27086: kr 5654 forskuddsvis; 27107: kr 3157 etterskuddsvis). Neste rulling: 27086 til jan–mar 2027 ved januar-kjøringen (forskudd), 27107 til jan–mar 2027 ved mars-kjøringen (etterskudd).
 
 ### Tripletex-synkronisering (etablert 2026-11-04)
 
