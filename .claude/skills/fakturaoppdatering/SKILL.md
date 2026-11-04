@@ -86,7 +86,38 @@ besvart) i `data/PrisoversiktSentralbord2026.xlsx`.
 - NEMUS-klinikkene (linje 50–54): fordeles manuelt via NEMUS_Anrop_Fordeling-filen, scriptet oppdaterer kun totalsummen i B5
 - Willis Towers Watson AS (linje 77): fast kr 490/mnd tillegg for bestilt samtaleoverføringsrapport. Gjaldt IKKE for august (bekreftet av Geir 2026-09-17). **Lagt til i I92-formelen fra og med september 2026-kjøringen (2026-10-01)** — `+490` er nå en permanent del av formelen, ikke fjern den.
 - Enova Trondheim (linje 65): kvartalsfakturering (jan/apr/jul/okt, forskudd). August 2026 var bekreftet IKKE faktureringsmåned (I76 tømt den perioden). **September 2026-kjøringen (2026-10-01) satte H76 til Q3-kumulativt jul+aug+sep = 28+38+33 = 99, og gjenopprettet formelen `=5140+MAX(0,H76-200)*36`** (= 5140 kr, ingen overpris siden 99<200). Neste steg: ved oktoberkjøringen (prosesserer oktober-data, ~1. nov) skal H76 nullstilles til KUN oktober sin verdi (start på nytt Q4-kvartal: okt+nov+des), og I76 tømmes igjen til neste forskuddsfaktura (oktober var allerede fakturamåned, så Q4 forskuddet er betalt — neste faktureringspunkt er januar 2027 med Q4-overpris-oppgjør).
-- NYD – Norsk Yrkesdykkerskole (linje 67): fakturerer forskudd pr. kvartal (feb/mai/aug/nov), flat kr 10 230 uten trapp. August 2026 var faktureringsmåned (I78=10230, bekreftet av Geir 2026-09-17). **September 2026-kjøringen tømte I78 igjen** siden september ikke er faktureringsmåned. Sett I78 til `=10230` igjen når H-kolonnen oppdateres for november 2026-perioden.
+- NYD – Norsk Yrkesdykkerskole (linje 67): fakturerer forskudd pr. kvartal (feb/mai/aug/nov), flat kr 10 230 uten trapp. **2026-11-04: lagt om fra engangsordre-per-kvartal til én løpende abonnementsordre i Tripletex** (ordre 28406, kundenr 30308), så det trengs ikke lenger en ny manuell ordre hvert kvartal.
+- Kinnarps (linje 79) og T. Solbakken Trafikkskole (linje 80): samme modell som Auto Vest (kr 1500 fast + kr 950 per påbegynt 20-steg). **2026-11-04: status satt til Aktiv, begge satt opp med løpende abonnementsordre i Tripletex** (Kinnarps: ordre 28404, kundenr 33203; T. Solbakken: ordre 28405, kundenr 33201). Begge fantes fra før som Tripletex-kunder med én lukket etableringsordre fra august 2026 – den er IKKE rørt.
+- Auto Vest (linje 82): kr 1500 fast + kr 950/20-steg. Lagt inn 2026-11-04 (org.nr 932 540 568, Varden 25, 5535 Haugesund), løpende abonnement i Tripletex (ordre 28403, kundenr 33204).
+- Fit4 AS (linje 70) + Fit4 e-post (linje 81): **2026-11-04 bekreftet ny modell av Geir**: kr 3292/mnd inkl. 100 ENHETER TOTALT (telefon H85 + e-post H103 samlet), + kr 28/enhet over 100, hele summen ×1,1. H103 (e-post) oppdateres manuelt hver måned på linje 81. Tripletex-ordren (27278) er lagt om til denne modellen – den gamle separate flate e-postlinjen (kr 1548) er nullstilt, IKKE slett den linjen på nytt (sletting av denne linjen feilet stille to ganger i Tripletex, satte price=0 i stedet).
+- IKT Nor AS (linje 39): grunnprisformelen (kr 860 + kr 42/anrop over 20) er den RIKTIGE kilden til sannhet, bekreftet av Geir 2026-11-04 – Tripletex-ordren hadde drevet seg bort fra formelen (feil fastlinje), rettet til å matche formelen igjen.
+- Klinikk Øre-nese-hals AS (linje 56): **2026-11-04: ny prismodell** fra we4you-tilbudet "Tilbud på kundesentertjeneste" (fast beredskap kr 1500 inntil 30 anrop, deretter 20-trinns trapp til kr 37930 ved 891–910 anrop, ×1,1) – erstatter den gamle CEG-tabell-formelen som ga feil tall. Tabellen ligger i eget ark `ONH tabell` i Prisoversikt-filen. Tripletex-ordren (27099) er oppdatert til ett linjebeløp fra denne tabellen.
+- Element Logic AS (linje 9): kvartalsfaktura forskuddsvis (jan/apr/jul/okt), kr 8880/kvartal ×1,1 = kr 9768. Tripletex-ordren (27410) var allerede riktig satt opp som `subscriptionPeriodsOnInvoice=3, ADVANCE`, men linjeprisen var feilaktig satt til kun 1/3 av kvartalsbeløpet (2960) – rettet 2026-11-04 til 9768. Element Logic Sweden AB kjøres fortsatt som egen engangsordre per kvartal (mar/jun/sep/des) à kr 8880 (uten 10%-økning ennå, ikke rørt) – IKKE bland sammen med Element Logic AS sin ordre.
+- Veidekke Industri AS – Møre (linje 27, kundenr 32722): **ordre 28326 er den gjeldende** i Tripletex (bekreftet av Geir 2026-11-04) – IKKE ordre 27123, som også finnes åpen på samme kunde men er en duplikat/gammel ordre.
+- Veidekke Industri AS – Sogn (linje 28, kundenr 33197, oppstart mars 2026): egen Tripletex-kunde (ikke samme som Møre), ordre 27827.
+- Spraying Systems Norge AS (linje 22): **rettet fra feilaktig "Spraying Systems Sverige AB"** i Prisoversikten 2026-11-04. Ordre 27116 er den gjeldende i Tripletex (ordre 28325 er en gammel duplikat, ikke oppdatert).
+- Enova Trondheim (Compass, linje 65) og Norsk Medisinsk Syklotronsenter (linje 66/77): Tripletex-ordrene (27086 og 27107) hadde per 2026-11-04 fortsatt gamle periodedatoer (hhv. august og juli–sep) som IKKE var rullet videre – må oppdateres til inneværende kvartal neste gang de er faktureringsmåned.
+
+### Tripletex-synkronisering (etablert 2026-11-04)
+
+Hver åpne sentralbordkunde-ordre i Tripletex har department "Svartjeneste"
+(id 180801), manuell fakturering (`isSubscriptionAutoInvoicing: false`), og
+som regel 1-2 linjer: en fast/strukturell linje + en "justeringslinje" som
+brukes til å treffe månedens Prisoversikt-beløp nøyaktig. Konvensjon for
+justeringslinjen: beskrivelse som "Klikk pris", "Besvarte anrop" e.l., og
+**pris nøyaktig 1 eller 0** signaliserer at det er en ren plugg-linje (kan
+settes til hvilket som helst tall, også negativt, for å treffe riktig
+total) – IKKE en reell per-enhets-rate. En linje med en ekte per-enhets-pris
+(f.eks. 42 kr/anrop) og en reell qty (antall anrop over grensen) skal
+justeres via QUANTITY, ikke pris. Tripletex tillater ikke `quantity: 0` på
+en prissatt linje – sett i stedet `quantity: 1, unitPriceExclVat: 0` for å
+nullstille en slik linje midlertidig. `deleteLineIds` har i denne økten vist
+seg å feile stille (rapporterer "deleted" men linjen består) – bruk price=0
+som trygg erstatning for sletting.
+
+Flere kunder har to åpne ordre på samme kundenummer (historiske duplikater)
+– sjekk alltid med Geir hvilken som er "gjeldende" før du oppdaterer, flagg
+heller enn å gjette.
 
 ## Steg 4 – Ukjente køer
 
