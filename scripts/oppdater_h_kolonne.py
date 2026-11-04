@@ -138,6 +138,7 @@ KO_LINJE = [
     ("Ower Trafikkskole",                      78),   # Fast pris (endret prisplan) – H er anropsbasert
     ("Kinnarps",                                79),   # Ny kø aug 2026 – avventer prismodell
     ("T. Solbakken Trafikkskole",               80),   # Ny kø aug 2026 – avventer prismodell
+    ("Auto Vest",                               82),   # Ny kø okt 2026 – fast 1500 + 950/20-steg
     ("Nemus",                                None),   # Spesialhandtert via NEMUS-fil
     ("Allskog",                                58),   # Generisk fallback
 ]
